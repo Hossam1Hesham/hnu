@@ -1,0 +1,14 @@
+{
+  "name": "hnu-attendance",
+  "version": "1.0.0",
+  "description": "نظام تسجيل حضور الطلاب الذكي - جامعة حلوان الأهلية",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "private": true
+}

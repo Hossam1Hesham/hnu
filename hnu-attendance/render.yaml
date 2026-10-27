@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: hnu-attendance
+    env: node
+    plan: free
+    buildCommand: ""
+    startCommand: "node server.js"
+    envVars:
+      - key: ADMIN_USER
+        value: admin
+      - key: ADMIN_PASS
+        generateValue: true
+      - key: SECRET
+        generateValue: true
+      - key: PORT
+        value: 10000
+      - key: DATE_ORDER
+        value: DMY
+      - key: SHEET_TZ
+        value: Africa/Cairo

@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>حضور جامعة حلوان الأهلية | HNU</title>
+<link rel="icon" href="/logo.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root {
+  --bg: #f4f6fa;
+  --card: #ffffff;
+  --ink: #111e38;
+  --mut: #5e6c84;
+  --pri: #0b3a7a;
+  --pri-dark: #07254f;
+  --pri-light: #e8f0fe;
+  --acc: #d4a72c;
+  --acc-light: #fef9e7;
+  --line: #dfe5f0;
+  --ok: #0d8a63;
+  --ok-bg: #e6f7f1;
+  --err: #c5221f;
+  --err-bg: #fde8e8;
+  --shadow: 0 6px 20px rgba(11, 58, 122, 0.08);
+  --radius: 14px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b111e;
+    --card: #151d2f;
+    --ink: #eaf0fb;
+    --mut: #93a2bd;
+    --pri: #4384e6;
+    --pri-dark: #2960b3;
+    --pri-light: #162642;
+    --acc: #e5b93d;
+    --acc-light: #2c2514;
+    --line: #222f47;
+    --ok: #34d399;
+    --ok-bg: #0d2820;
+    --err: #f87171;
+    --err-bg: #301618;
+    --shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Cairo', Tahoma, Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+header {
+  background: linear-gradient(135deg, #0b3a7a 0%, #061e40 100%);
+  color: #fff;
+  padding: 14px 22px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 4px solid var(--acc);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+}
+header img {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #fff;
+  padding: 2px;
+  object-fit: cover;
+  flex: none;
+}
+header h1 {
+  font-size: 1.15rem;
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+header small {
+  opacity: 0.88;
+  font-size: 0.82rem;
+  display: block;
+}
+#logout {
+  margin-inline-start: auto;
+  background: rgba(255,255,255,0.16);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff;
+  padding: 7px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all .2s;
+}
+#logout:hover { background: rgba(255,255,255,0.28); }
+
+main {
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 22px 16px 40px;
+  flex: 1;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+}
+h2 {
+  margin: 0 0 16px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--mut);
+  margin: 14px 0 6px;
+}
+.help-txt {
+  font-size: 0.8rem;
+  color: var(--mut);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+input, select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.95rem;
+  transition: border-color .2s, box-shadow .2s;
+}
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--pri);
+  box-shadow: 0 0 0 3px rgba(11, 58, 122, 0.15);
+}
+button {
+  font: inherit;
+  cursor: pointer;
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 18px;
+  background: var(--pri);
+  color: #fff;
+  font-weight: 700;
+  transition: all .15s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+button:hover { opacity: 0.92; transform: translateY(-1px); }
+button:active { transform: translateY(0); }
+button.sec {
+  background: transparent;
+  color: var(--pri);
+  border: 1px solid var(--pri);
+}
+button.sec:hover { background: var(--pri-light); }
+button.del { background: var(--err); }
+button.del:hover { opacity: 0.9; }
+button.acc { background: var(--acc); color: #111e38; }
+button.full { width: 100%; margin-top: 18px; padding: 13px; font-size: 1rem; }
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.tabs button {
+  flex: 1;
+  white-space: nowrap;
+  background: var(--card);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  padding: 11px 16px;
+  font-size: 0.95rem;
+}
+.tabs button.on {
+  background: var(--pri);
+  color: #fff;
+  border-color: var(--pri);
+  box-shadow: 0 4px 10px rgba(11,58,122,0.2);
+}
+
+.msg {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+.msg.err { color: var(--err); background: var(--err-bg); border: 1px solid var(--err); }
+.msg.ok { color: var(--ok); background: var(--ok-bg); border: 1px solid var(--ok); }
+.msg.info { color: var(--pri); background: var(--pri-light); border: 1px solid var(--pri); }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.badge.ready { background: var(--ok-bg); color: var(--ok); }
+.badge.warn { background: var(--acc-light); color: #8a6805; }
+
+.lecs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+.lec {
+  padding: 14px 6px;
+  background: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  text-align: center;
+}
+.lec.on {
+  border-color: var(--acc);
+  outline: 2px solid var(--acc);
+  background: var(--acc-light);
+  color: #111e38;
+}
+
+#qrbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 22px;
+  background: #ffffff;
+  border-radius: 16px;
+  width: fit-content;
+  margin: 16px auto;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+.bar {
+  height: 8px;
+  background: var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+  max-width: 280px;
+  margin: 12px auto 0;
+}
+.bar i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--acc), #f59e0b);
+  transition: width 0.1s linear;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  margin-top: 10px;
+}
+th, td {
+  padding: 11px 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: right;
+}
+th { color: var(--mut); font-weight: 700; background: var(--bg); }
+tr:hover td { background: rgba(11, 58, 122, 0.03); }
+.wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--line); }
+.cnt {
+  background: var(--acc);
+  color: #14213d;
+  border-radius: 20px;
+  padding: 3px 14px;
+  font-weight: 800;
+  display: inline-block;
+}
+.row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin: 16px 0 12px;
+}
+.doc {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 10px;
+  border-bottom: 1px solid var(--line);
+}
+.doc:last-child { border-bottom: 0; }
+.hide { display: none !important; }
+.center { text-align: center; }
+.mut { color: var(--mut); }
+
+/* مودال ملء الشاشة للـ QR */
+.fs-modal {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.fs-modal #qrbox-fs {
+  padding: 24px;
+  background: #fff;
+}
+.fs-close {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: #e2e8f0;
+  color: #111;
+  font-size: 1.1rem;
+  padding: 10px 18px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <img src="/logo.jpg" alt="HNU" onerror="this.style.display='none'">
+  <div>
+    <h1>جامعة حلوان الأهلية</h1>
+    <small>Helwan National University · نظام الحضور الذكي</small>
+  </div>
+  <button id="logout" class="hide">تسجيل الخروج</button>
+</header>
+
+<main>
+  <!-- شاشة تسجيل الدخول -->
+  <section id="vLogin" class="card hide" style="max-width: 420px; margin: 40px auto;">
+    <h2>تسجيل الدخول</h2>
+    <p class="mut" style="font-size:0.9rem; margin-top:-6px;">تسجيل الدخول لمسؤولي النظام وأعضاء هيئة التدريس</p>
+    <label>اسم المستخدم</label>
+    <input id="u" dir="ltr" autocomplete="username" placeholder="مثال: admin أو dr_ahmed">
+    <label>كلمة المرور</label>
+    <input id="p" type="password" dir="ltr" autocomplete="current-password" placeholder="••••••••">
+    <button class="full" id="loginBtn">دخول</button>
+    <div class="msg err hide" id="loginMsg"></div>
+  </section>
+
+  <!-- التطبيق الرئيسي -->
+  <section id="vApp" class="hide">
+    <div class="row" style="margin-top:0;">
+      <h2 id="hello" style="margin:0;"></h2>
+      <div id="statusBadge"></div>
+    </div>
+    <div class="tabs" id="tabs"></div>
+    <div id="panels"></div>
+  </section>
+</main>
+
+<script>
+const $ = i => document.getElementById(i);
+const h = (t, c, x) => {
+  const e = document.createElement(t);
+  if (c) e.className = c;
+  if (x != null) e.textContent = x;
+  return e;
+};
+
+const api = async (p, m = 'GET', b) => {
+  const r = await fetch('/api/' + p, {
+    method: m,
+    headers: { 'Content-Type': 'application/json' },
+    body: b ? JSON.stringify(b) : undefined
+  });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) {
+    throw Object.assign(new Error(j.error || 'حدث خطأ في الاتصال'), { status: r.status });
+  }
+  return j;
+};
+
+let me, timer, qrT, curTab = 0;
+const stop = () => { clearInterval(timer); clearInterval(qrT); };
+
+async function init() {
+  try {
+    me = await api('me');
+    start();
+  } catch {
+    $('vLogin').classList.remove('hide');
+  }
+}
+
+$('loginBtn').onclick = async () => {
+  $('loginMsg').classList.add('hide');
+  try {
+    await api('login', 'POST', { u: $('u').value.trim(), p: $('p').value });
+    location.reload();
+  } catch (e) {
+    $('loginMsg').textContent = e.message;
+    $('loginMsg').classList.remove('hide');
+  }
+};
+$('p').onkeydown = e => { if (e.key === 'Enter') $('loginBtn').click(); };
+$('logout').onclick = async () => { await api('logout', 'POST'); location.reload(); };
+
+function start() {
+  $('vLogin').classList.add('hide');
+  $('vApp').classList.remove('hide');
+  $('logout').classList.remove('hide');
+  $('hello').textContent = 'مرحباً، ' + me.name;
+
+  // شارة حالة الربط
+  const badge = $('statusBadge');
+  if (me.isConfigured) {
+    badge.innerHTML = '<span class="badge ready">🟢 نظام Google Form مربوط وجاهز</span>';
+  } else {
+    badge.innerHTML = '<span class="badge warn">⚠️ Google Form غير مربوط بعد</span>';
+  }
+
+  // أسماء التبويبات
+  const names = me.role === 'admin'
+    ? ['إعدادات الربط (Google)', 'إدارة الدكاترة', 'سجلات الحضور', 'النسخ الاحتياطي']
+    : ['QR التسجيل للمحاضرة', 'سجل حضور الطلاب'];
+
+  $('tabs').replaceChildren(...names.map((n, i) => {
+    const b = h('button', i === curTab ? 'on' : '', n);
+    b.onclick = () => { curTab = i; start(); };
+    return b;
+  }));
+
+  stop();
+  const P = $('panels');
+  P.replaceChildren();
+
+  if (me.role === 'admin') {
+    if (curTab === 0) adminSettings(P);
+    else if (curTab === 1) adminDocs(P);
+    else if (curTab === 2) adminAttendanceOverview(P);
+    else if (curTab === 3) adminBackup(P);
+  } else {
+    if (curTab === 0) qrPanel(P);
+    else attPanel(P, me.lectures);
+  }
+}
+
+async function addLec() {
+  const r = await api('lectures', 'POST');
+  me.lectures = r.lectures;
+  start();
+}
+
+function lecButtons(box, n, on, canAdd) {
+  const g = h('div', 'lecs');
+  for (let i = 1; i <= n; i++) {
+    const b = h('button', 'lec', 'محاضرة ' + i);
+    b.onclick = () => {
+      [...g.children].forEach(c => c.classList.remove('on'));
+      b.classList.add('on');
+      on(i);
+    };
+    g.append(b);
+  }
+  if (canAdd) {
+    const a = h('button', 'lec sec', '+ إضافة محاضرة');
+    a.onclick = addLec;
+    g.append(a);
+  }
+  box.append(g);
+}
+
+/* ================= لوحة الدكتور: QR التسجيل ================= */
+function qrPanel(P) {
+  const c = h('div', 'card center');
+  c.append(h('h2', null, 'اختر المحاضرة لعرض كود الـ QR للطلاب'));
+
+  const area = h('div', 'hide');
+  const box = h('div'); box.id = 'qrbox';
+  const bar = h('div', 'bar'); const fill = h('i'); bar.append(fill);
+  const lbl = h('p', 'mut');
+  const btnFs = h('button', 'sec', '⛶ تكبير الشاشة للبروجكتور');
+  btnFs.style.margin = '10px 0';
+  const err = h('div', 'msg err hide');
+
+  area.append(box, bar, lbl, btnFs);
+
+  lecButtons(c, me.lectures, i => {
+    stop();
+    area.classList.remove('hide');
+    lbl.textContent = 'محاضرة ' + i + ' — الرمز يتغير تلقائياً كل 5 ثوانٍ لحماية التسجيل';
+    let last = -1;
+    let currentUrl = '';
+
+    const draw = async () => {
+      try {
+        const r = await api('qr?lec=' + i);
+        box.innerHTML = '';
+        err.classList.add('hide');
+        currentUrl = r.url;
+        new QRCode(box, {
+          text: r.url,
+          width: 250,
+          height: 250,
+          correctLevel: QRCode.CorrectLevel.L
+        });
+      } catch (e) {
+        box.innerHTML = '';
+        err.textContent = e.message;
+        err.classList.remove('hide');
+      }
+    };
+
+    qrT = setInterval(() => {
+      const n = Date.now(), s = Math.floor(n / 5000);
+      fill.style.width = (100 - (n % 5000) / 50) + '%';
+      if (s !== last) {
+        last = s;
+        draw();
+      }
+    }, 100);
+
+    // ملء الشاشة
+    btnFs.onclick = () => {
+      const modal = h('div', 'fs-modal');
+      const close = h('button', 'fs-close', '✕ إغلاق');
+      const title = h('h1', null, 'امسح الكود لتسجيل الحضور — محاضرة ' + i);
+      title.style.margin = '0 0 20px';
+      title.style.color = '#0b3a7a';
+      const fsBox = h('div'); fsBox.id = 'qrbox-fs';
+      const fsSub = h('p', 'mut', 'الكود يتجدد كل 5 ثوانٍ تلقائياً');
+      modal.append(close, title, fsBox, fsSub);
+      document.body.append(modal);
+
+      const fsDraw = () => {
+        fsBox.innerHTML = '';
+        if (currentUrl) {
+          new QRCode(fsBox, { text: currentUrl, width: 380, height: 380, correctLevel: QRCode.CorrectLevel.L });
+        }
+      };
+      fsDraw();
+      const fsT = setInterval(fsDraw, 2500);
+
+      close.onclick = () => { clearInterval(fsT); modal.remove(); };
+    };
+  }, true);
+
+  c.append(area, err);
+  P.append(c);
+}
+
+/* ================= لوحة الدكتور: سجل الحضور ================= */
+function attPanel(P, n, doc) {
+  const c = h('div', 'card');
+  c.append(h('h2', null, 'سجلات الحضور للمحاضرات'));
+  const out = h('div');
+
+  lecButtons(c, n, i => {
+    clearInterval(timer);
+    const go = async () => {
+      try {
+        const r = await api(`attendance?doctor=${doc ?? me.id}&lec=${i}`);
+        out.replaceChildren(tbl(r.rows, i));
+      } catch (e) {
+        out.replaceChildren(h('div', 'msg err', e.message));
+      }
+    };
+    go();
+    timer = setInterval(go, 10000);
+  }, me.role !== 'admin');
+
+  c.append(out);
+  P.append(c);
+}
+
+function tbl(rows, i) {
+  const d = h('div');
+  const top = h('div', 'row');
+  const t = h('b', null, 'محاضرة ' + i);
+  const cn = h('span', null, 'الطلاب الحاضرون: ');
+  cn.append(h('span', 'cnt', rows.length));
+  const csvb = h('button', 'sec', '⬇ تنزيل كشف Excel / CSV');
+  top.append(t, cn, csvb);
+  d.append(top);
+
+  csvb.onclick = () => {
+    const q = s => '"' + String(s ?? '').replace(/"/g, '""') + '"';
+    const txt = '\ufeff' + [
+      'م,الاسم,الكود الجامعي,السيكشن,الجروب,وقت التسجيل',
+      ...rows.map((r, k) => [
+        k + 1,
+        r.name,
+        r.code,
+        r.sec,
+        r.grp,
+        new Date(r.t).toLocaleString('ar-EG')
+      ].map(q).join(','))
+    ].join('\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([txt], { type: 'text/csv;charset=utf-8' }));
+    a.download = 'hnu-lecture-' + i + '-attendance.csv';
+    a.click();
+  };
+
+  if (!rows.length) {
+    d.append(h('p', 'mut center', 'لم يسجل أي طالب حضوره في هذه المحاضرة بعد.'));
+    return d;
+  }
+
+  const tb = h('table');
+  const hd = h('tr');
+  ['#', 'الاسم', 'الكود الجامعي', 'السيكشن', 'الجروب', 'الوقت'].forEach(x => hd.append(h('th', null, x)));
+  tb.append(hd);
+
+  rows.forEach((r, k) => {
+    const tr = h('tr');
+    [
+      k + 1,
+      r.name,
+      r.code,
+      r.sec,
+      r.grp,
+      new Date(r.t).toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+    ].forEach(v => tr.append(h('td', null, v)));
+    tb.append(tr);
+  });
+
+  const w = h('div', 'wrap');
+  w.append(tb);
+  d.append(w);
+  return d;
+}
+
+/* ================= لوحة الأدمن: إعدادات الربط ================= */
+async function adminSettings(P) {
+  const c = h('div', 'card');
+  c.append(h('h2', null, '⚙️ إعدادات ربط Google Form و Google Sheet'));
+
+  const desc = h('p', 'mut');
+  desc.textContent = 'ضع هنا روابط استمارة جوجل وشيت الردود لتفعيل الحضور وتوليد الـ QR الديناميكي.';
+  c.append(desc);
+
+  const cur = await api('settings').catch(() => ({}));
+
+  const f = {};
+  const fields = [
+    ['formUrl', 'رابط Google Form (FORM_URL)', 'رابط استمارة جوجل للطلاب المنتهي بـ /viewform', cur.formUrl || 'https://docs.google.com/forms/d/e/.../viewform'],
+    ['tokenEntry', 'معرّف حقل التوكن (TOKEN_ENTRY)', 'رقم الحقل المستخرج من Get pre-filled link (يبدأ بـ entry.)', cur.tokenEntry || 'entry.123456789'],
+    ['sheetCsv', 'رابط شيت الردود المنشور CSV (SHEET_CSV)', 'من الشيت: مشاركة ← نشر إلى الويب ← اختيار الردود كـ CSV', cur.sheetCsv || 'https://docs.google.com/spreadsheets/d/e/.../pub?output=csv'],
+    ['windowSec', 'مدة صلاحية التوكن (بالثواني)', 'المدة المسموحة بين مسح الكود وإرسال الفورم (افتراضي 240 ثانية = 4 دقائق)', cur.windowSec || '240']
+  ];
+
+  fields.forEach(([k, label, help, val]) => {
+    c.append(h('label', null, label));
+    const input = h('input');
+    input.value = val;
+    input.dir = 'ltr';
+    f[k] = input;
+    c.append(input);
+    const hp = h('div', 'help-txt', help);
+    c.append(hp);
+  });
+
+  const btns = h('div', 'row');
+  const btnSave = h('button', null, '💾 حفظ الإعدادات');
+  const btnTest = h('button', 'sec', '🔍 فحص واختبار شيت جوجل');
+  btns.append(btnSave, btnTest);
+  c.append(btns);
+
+  const msg = h('div', 'msg hide');
+  c.append(msg);
+
+  btnSave.onclick = async () => {
+    try {
+      await api('settings', 'POST', {
+        formUrl: f.formUrl.value,
+        tokenEntry: f.tokenEntry.value,
+        sheetCsv: f.sheetCsv.value,
+        windowSec: +f.windowSec.value || 240
+      });
+      msg.className = 'msg ok';
+      msg.textContent = '✔ تم حفظ الإعدادات بنجاح!';
+      msg.classList.remove('hide');
+      me.isConfigured = !!(f.formUrl.value && f.tokenEntry.value && f.sheetCsv.value);
+      $('statusBadge').innerHTML = me.isConfigured
+        ? '<span class="badge ready">🟢 نظام Google Form مربوط وجاهز</span>'
+        : '<span class="badge warn">⚠️ Google Form غير مربوط بعد</span>';
+    } catch (e) {
+      msg.className = 'msg err';
+      msg.textContent = e.message;
+      msg.classList.remove('hide');
+    }
+  };
+
+  btnTest.onclick = async () => {
+    msg.className = 'msg info';
+    msg.textContent = '⏳ جاري فحص الاتصال بشيت جوجل وقراءة البيانات...';
+    msg.classList.remove('hide');
+    try {
+      const res = await api('test-sheet');
+      msg.className = 'msg ok';
+      msg.innerHTML = `✔ <b>الاتصال ناجح!</b><br>
+        عدد الصفوف المقروءة: <b>${res.totalRows}</b> صف.<br>
+        الأعمدة المكتشفة: <code>${(res.headers || []).join(' | ')}</code>`;
+    } catch (e) {
+      msg.className = 'msg err';
+      msg.innerHTML = `❌ <b>فشل الاتصال:</b> ${e.message}<br>
+        تأكد من نشر الشيت إلى الويب كـ CSV من قائمة (ملف ← مشاركة ← نشر إلى الويب ← CSV).`;
+    }
+  };
+
+  P.append(c);
+}
+
+/* ================= لوحة الأدمن: إدارة الدكاترة ================= */
+async function adminDocs(P) {
+  // كارت إنشاء حساب جديد
+  const cNew = h('div', 'card');
+  cNew.style.maxWidth = '520px';
+  cNew.append(h('h2', null, '➕ إنشاء حساب دكتور أو معيد'));
+  const f = {};
+  [['name', 'اسم الدكتور / المعيد', 'مثال: د. أحمد حسام'],
+   ['username', 'اسم المستخدم (إنجليزي)', 'مثال: dr_ahmed'],
+   ['password', 'كلمة المرور', '6 أحرف أو أرقام على الأقل']].forEach(([k, label, ph]) => {
+    cNew.append(h('label', null, label));
+    f[k] = h('input');
+    f[k].dir = k === 'name' ? 'rtl' : 'ltr';
+    f[k].placeholder = ph;
+    if (k === 'password') f[k].type = 'password';
+    cNew.append(f[k]);
+  });
+  const btnAdd = h('button', 'full', 'إنشاء الحساب');
+  const msgNew = h('div', 'msg hide');
+  cNew.append(btnAdd, msgNew);
+
+  btnAdd.onclick = async () => {
+    try {
+      await api('doctors', 'POST', {
+        name: f.name.value,
+        username: f.username.value,
+        password: f.password.value
+      });
+      msgNew.className = 'msg ok';
+      msgNew.textContent = 'تم إنشاء الحساب بنجاح ✔';
+      msgNew.classList.remove('hide');
+      Object.values(f).forEach(i => i.value = '');
+      refreshDocList();
+    } catch (e) {
+      msgNew.className = 'msg err';
+      msgNew.textContent = e.message;
+      msgNew.classList.remove('hide');
+    }
+  };
+  P.append(cNew);
+
+  // كارت قائمة الدكاترة المسجلين
+  const cList = h('div', 'card');
+  cList.append(h('h2', null, '📋 قائمة الدكاترة المسجلين'));
+  const listArea = h('div');
+  const previewArea = h('div');
+  cList.append(listArea, previewArea);
+  P.append(cList);
+
+  async function refreshDocList() {
+    listArea.replaceChildren(h('p', 'mut', 'جاري التحميل...'));
+    const { doctors } = await api('doctors').catch(() => ({ doctors: [] }));
+    listArea.replaceChildren();
+    if (!doctors.length) {
+      listArea.append(h('p', 'mut', 'لا يوجد حسابات دكاترة مسجلة بعد.'));
+      return;
+    }
+    doctors.forEach(d => {
+      const r = h('div', 'doc');
+      const info = h('span');
+      info.innerHTML = `<b>${d.name}</b> <small class="mut">(@${d.username})</small>`;
+      const bx = h('span');
+      bx.style.display = 'flex';
+      bx.style.gap = '8px';
+
+      const btnV = h('button', 'sec', 'عرض الحضور');
+      btnV.onclick = () => {
+        clearInterval(timer);
+        previewArea.replaceChildren();
+        attPanel(previewArea, d.lectures, d.id);
+      };
+
+      const btnPw = h('button', 'sec', 'تغيير كلمة المرور');
+      btnPw.onclick = async () => {
+        const x = prompt(`أدخل كلمة المرور الجديدة للدكتور ${d.name} (6 أحرف على الأقل):`);
+        if (x) {
+          try {
+            await api(`doctors/${d.id}/password`, 'POST', { password: x });
+            alert('تم تغيير كلمة المرور بنجاح ✔');
+          } catch (e) {
+            alert(e.message);
+          }
+        }
+      };
+
+      const btnDel = h('button', 'del', 'حذف');
+      btnDel.onclick = async () => {
+        if (confirm(`هل أنت متأكد من حذف حساب الدكتور ${d.name}؟`)) {
+          await api(`doctors/${d.id}`, 'DELETE');
+          refreshDocList();
+        }
+      };
+
+      bx.append(btnV, btnPw, btnDel);
+      r.append(info, bx);
+      listArea.append(r);
+    });
+  }
+  refreshDocList();
+}
+
+/* ================= لوحة الأدمن: استعراض الحضور ================= */
+async function adminAttendanceOverview(P) {
+  const c = h('div', 'card');
+  c.append(h('h2', null, '📊 استعراض سجلات الحضور'));
+  const { doctors } = await api('doctors').catch(() => ({ doctors: [] }));
+
+  if (!doctors.length) {
+    c.append(h('p', 'mut', 'لم يتم إضافة أي دكاترة بعد لعرض سجلاتهم.'));
+    P.append(c);
+    return;
+  }
+
+  c.append(h('label', null, 'اختر الدكتور:'));
+  const sel = h('select');
+  doctors.forEach(d => {
+    const opt = document.createElement('option');
+    opt.value = d.id;
+    opt.textContent = `${d.name} (@${d.username})`;
+    sel.append(opt);
+  });
+  c.append(sel);
+
+  const out = h('div');
+  out.style.marginTop = '16px';
+  c.append(out);
+
+  const renderSelected = () => {
+    const docId = +sel.value;
+    const doc = doctors.find(x => x.id === docId);
+    out.replaceChildren();
+    if (doc) attPanel(out, doc.lectures, doc.id);
+  };
+
+  sel.onchange = renderSelected;
+  renderSelected();
+  P.append(c);
+}
+
+/* ================= لوحة الأدمن: النسخ الاحتياطي ================= */
+function adminBackup(P) {
+  const c = h('div', 'card');
+  c.append(h('h2', null, '💾 النسخ الاحتياطي للنظام'));
+  c.append(h('p', 'mut', 'يمكنك تنزيل نسخة من بيانات النظام (حسابات الدكاترة والإعدادات) أو استعادتها في أي وقت.'));
+
+  const btnDl = h('button', 'acc', '⬇ تنزيل نسخة احتياطية (data.json)');
+  btnDl.onclick = () => { window.location.href = '/api/backup'; };
+  c.append(btnDl);
+
+  c.append(h('hr', null));
+  c.append(h('h3', null, 'استعادة نسخة سابقة'));
+  const finput = h('input');
+  finput.type = 'file';
+  finput.accept = '.json';
+  const btnUp = h('button', 'sec', '⬆ استعادة الملف المختار');
+  const bMsg = h('div', 'msg hide');
+
+  btnUp.onclick = async () => {
+    if (!finput.files || !finput.files[0]) {
+      alert('يرجى اختيار ملف JSON أولاً');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = async e => {
+      try {
+        const parsed = JSON.parse(e.target.result);
+        await api('restore', 'POST', parsed);
+        bMsg.className = 'msg ok';
+        bMsg.textContent = 'تم استعادة النسخة الاحتياطية بنجاح ✔';
+        bMsg.classList.remove('hide');
+        setTimeout(() => location.reload(), 1500);
+      } catch (err) {
+        bMsg.className = 'msg err';
+        bMsg.textContent = 'الملف غير صالح: ' + err.message;
+        bMsg.classList.remove('hide');
+      }
+    };
+    reader.readAsText(finput.files[0]);
+  };
+
+  c.append(finput, btnUp, bMsg);
+  P.append(c);
+}
+
+init();
+</script>
+</body>
+</html>
